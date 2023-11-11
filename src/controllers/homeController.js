@@ -3,7 +3,6 @@ const cubeService = require("../services/cubeService");
 
 router.get("/", (req, res) => {
   const cubes = cubeService.getAll();
-  console.log(cubes);
   res.render("index", { cubes });
 });
 
