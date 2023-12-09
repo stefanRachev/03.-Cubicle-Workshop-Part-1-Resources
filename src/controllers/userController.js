@@ -15,4 +15,9 @@ router.get("/login", (req, res) => {
   res.render("user/login");
 });
 
+router.post("/login", async (req, res) => {
+  const { username, password } = req.body;
+  const user = await userServices.login(username, password);
+  res.redirect("/");
+});
 module.exports = router;
