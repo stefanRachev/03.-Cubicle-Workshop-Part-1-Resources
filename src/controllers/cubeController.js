@@ -26,10 +26,11 @@ router.get("/:cubeId/details", async (req, res) => {
     res.redirect("/404");
     return;
   }
+  const isOwner = cube.owner?.toString() === req.user._id;
   const accessories = cube.accessories;
   const hasAccessories =
     accessories === undefined ? false : accessories.length > 0;
-  res.render("cube/details", { ...cube, accessories, hasAccessories });
+  res.render("cube/details", { ...cube, accessories, hasAccessories, isOwner });
 });
 
 router.get("/:cubeId/attach-accessory", async (req, res) => {
@@ -77,8 +78,8 @@ router.get("/:cubeId/delete", async (req, res) => {
 
 router.post("/:cubeId/delete", async (req, res) => {
   const { cubeId } = req.params;
- await cubeService.delete(cubeId)
- res.redirect("/");
+  await cubeService.delete(cubeId);
+  res.redirect("/");
 });
 
 module.exports = router;
